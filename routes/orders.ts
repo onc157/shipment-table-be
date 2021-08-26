@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import * as storage from '../storage/fs'
 
 const router = Router();
@@ -36,7 +36,7 @@ router.get('/:id', async (req, res, next) => {
  * CREATE ORDER
  */
 router.post('/', async (req, res, next) => {
-  const id = uuid();
+  const id = uuidv4();
 
   const { body } = req;
 
