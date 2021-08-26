@@ -1,22 +1,5 @@
 import { promises as fsp } from 'fs';
-
-type ShopType = {
-    name: String;
-    orderNumber: String;
-}
-
-type OrderType = {
-    id: string;
-    customer: string;
-    item: string;
-    status: string;
-    orderDate: string | null;
-    shipmentDate: string | null;
-    shop: ShopType | null;
-    weight: string | null;
-    tracking: string | null;
-    isArchive: Boolean;
-}
+import { OrderType } from '../types/order';
 
 const fileName = 'orders.json';
 
