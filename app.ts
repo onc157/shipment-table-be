@@ -1,4 +1,4 @@
-import express from "express";
+import * as express from "express";
 import logger from "morgan";
 import ordersRouter from "./routes/orders";
 const app = express();
