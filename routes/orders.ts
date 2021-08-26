@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { v4 as uuidv4 } from 'uuid';
+// import { uuid } from 'uuid';
+const uuidv4 = require('uuid/v4')
 import * as storage from '../storage/fs'
 
 const router = Router();
