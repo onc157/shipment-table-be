@@ -13,7 +13,7 @@ const router = Router();
 /**
  * GET ORDERS LIST
  */
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   const list = await storage.listAll();
 
   res.json(list);
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 /**
  * GET ORDER
  */
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   const item = await storage.getById(req.params['id'])
 
   res
@@ -35,7 +35,7 @@ router.get('/:id', async (req, res) => {
 /**
  * CREATE ORDER
  */
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   const id = uuid();
 
   const { body } = req;
@@ -50,7 +50,7 @@ router.post('/', async (req, res) => {
 /**
  * UPDATE ORDER
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req, res, next) => {
   const { body } = req;
 
   const newBody = await storage.update({
@@ -65,7 +65,7 @@ router.put('/:id', async (req, res) => {
 /**
  * DELETE ORDER
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
   await storage.remove(req.params['id']);
 
   res

@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/orders', ordersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res) {
+app.use(function(req, res, next) {
   res.json({
     statusCode: 404
   })
