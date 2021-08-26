@@ -1,10 +1,13 @@
-import express from "express";
-import logger from "morgan";
-import ordersRouter from "./routes/orders";
+import express from 'express';
+import logger from 'morgan';
+import cors from 'cors';
+
+import ordersRouter from './routes/orders';
 const app = express();
 
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
