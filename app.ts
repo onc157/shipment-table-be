@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import logger from 'morgan';
 import cors from 'cors';
 import ordersRouter from './routes/orders';
+import atmRouter from './routes/atm';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/orders', ordersRouter);
+app.use('/atm', atmRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
