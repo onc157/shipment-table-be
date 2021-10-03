@@ -16,56 +16,76 @@ export const getAtmData = async (req: Request, res: Response): Promise<Response>
 }
 
 export const getMoney = async (req: Request, res: Response): Promise<Response> => {
-    let { sum } = req.body
+    const { sum } = req.body
 
     try {
-        const atmData = await AtmModel.find({ });
+        const data = await AtmModel.find({ });
 
-        const newAtmData = atmData[0];
+        const atmData = data[0];
 
         let atmSum = 0;
 
         atmTemplateValue.forEach((elem) => {
-            atmSum += newAtmData[elem] * +elem
+            atmSum += atmData[elem] * +elem
         })
 
         if (atmSum < sum) {
             return successHandler(res, 200, ERROR_ATM_MESSAGE);
         }
 
-        const atmChangeData = {};
+        const walletChangeData = {};
 
-        const reduceAtmMoney = (item) => {
-            newAtmData[item] ? newAtmData[item] -= 1 : null
+        const reduceAtmMoney = (item, count) => {
+            atmData[item] ? atmData[item] -= count : null
         }
 
-        const changeAtmChangeData = (item) => {
-            atmChangeData[item] ? atmChangeData[item] += 1 : atmChangeData[item] = 1
-        }
+        // const increaseWalletMoney = (item, count) => {
+        //     walletChangeData[item] ? walletChangeData[item] += count : walletChangeData[item] = count
+        // }
 
-        atmTemplateValue.reduce((result, item) => {
+        // atmTemplateValue.forEach(( item) => {
+        //     if (sum >= item && atmData[item]) {
+        //         const count = Math.floor(sum / item)
+        //
+        //         const countFact = count > atmData[item] ? atmData[item] : count
+        //
+        //         // reduceAtmMoney(item, countFact);
+        //         // increaseWalletMoney(item, countFact);
+        //
+        //         // sum -= item * countFact
+        //     }
+        // })
 
-            if (sum >= item) {
-                const count = Math.floor(sum / item)
+        const testChangeWalletData = atmTemplateValue.reduce((acc, item) => {
+            const { total } = acc
 
-                for (let i = 0; i < count; i++) {
-                    sum = sum - item
+            if (total >= item && atmData[item]) {
+                const count = Math.floor(total / item)
 
-                    reduceAtmMoney(item);
-                    changeAtmChangeData(item);
-                }
+                const countFact = count > atmData[item] ? atmData[item] : count
+
+                reduceAtmMoney(item, countFact);
+                // increaseWalletMoney(item, countFact);
+
+                // sum -= item * countFact
+
+                return { ...acc, [item]: countFact, total: total - item * countFact };
             }
 
-            return result
-        }, {})
+            return acc;
+        }, {total: sum})
+
+        console.log(testChangeWalletData)
 
         await AtmModel.findOneAndUpdate(
             { _id: '6159f7066e88151080b59384' },
-            newAtmData ,
+            atmData ,
             { useFindAndModify: false }
         );
 
-        return successHandler(res, 200, atmChangeData);
+        const { total, ...data1 } = testChangeWalletData
+
+        return successHandler(res, 200, data1 );
     } catch (e: unknown) {
         if (!(e instanceof Error)) throw e;
 
