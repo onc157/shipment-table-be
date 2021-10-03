@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { errorHandler, successHandler } from '../utils';
 import { AtmModel } from '../models';
-import { atmTemplateValue } from '../utils/params';
+import { atmTemplateValue, ERROR_ATM_MESSAGE } from '../utils/params';
 
 export const getAtmData = async (req: Request, res: Response): Promise<Response> => {
     try {
@@ -30,7 +30,7 @@ export const getMoney = async (req: Request, res: Response): Promise<Response> =
         })
 
         if (atmSum < sum) {
-            errorHandler(res, 500, 'The operation is not possible. There is no money in the ATM');
+            return successHandler(res, 200, ERROR_ATM_MESSAGE);
         }
 
         const atmChangeData = {};
@@ -60,7 +60,7 @@ export const getMoney = async (req: Request, res: Response): Promise<Response> =
         }, {})
 
         await AtmModel.findOneAndUpdate(
-            { _id: '6158c9d6e0c0db0416baf299' },
+            { _id: '6159f7066e88151080b59384' },
             newAtmData ,
             { useFindAndModify: false }
         );

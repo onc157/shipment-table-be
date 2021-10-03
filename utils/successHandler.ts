@@ -10,6 +10,6 @@ type DocumentTime =
 
 export const successHandler = (res: Response, code: number, document: DocumentTime): Response =>
     res.status(code).json({
-        success: true,
+        success: typeof document !== 'string',
         payload: document,
     });

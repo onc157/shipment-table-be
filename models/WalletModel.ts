@@ -13,22 +13,22 @@ export interface WalletDocumentInterface extends WalletInterface, Document {}
 
 const WalletSchema: Schema<WalletDocumentInterface> = new Schema<WalletDocumentInterface>({
     5000: {
-        type: String,
+        type: Number,
     },
     2000: {
-        type: String,
+        type: Number,
     },
     1000: {
-        type: String,
+        type: Number,
     },
     500: {
-        type: String,
+        type: Number,
     },
     200: {
-        type: String,
+        type: Number,
     },
     100: {
-        type: String,
+        type: Number,
     }
 });
 

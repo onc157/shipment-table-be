@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getMoney, getAtmData } from '../controllers';
+import { getMoney, getAtmData, createAtmData } from '../controllers';
 
 const atmRouter = Router();
 
