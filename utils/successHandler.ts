@@ -12,4 +12,5 @@ export const successHandler = (res: Response, code: number, document: DocumentTi
     res.status(code).json({
         success: typeof document !== 'string',
         payload: document,
+        message: typeof document === 'string' ? document : ''
     });
