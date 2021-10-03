@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { OrderDocumentInterface } from '../models';
-import { AtmDocumentInterface } from '../models/AtmModel';
+import { AtmDocumentInterface } from '../models';
 
 type DocumentTime =
     | OrderDocumentInterface

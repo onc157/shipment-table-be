@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { errorHandler, successHandler } from '../utils';
-import { AtmModel } from '../models/AtmModel';
-
-const atmTemplateValue = [5000, 2000, 1000, 500, 200, 100];
+import { AtmModel } from '../models';
+import { atmTemplateValue } from '../utils/params';
 
 export const getAtmData = async (req: Request, res: Response): Promise<Response> => {
     try {

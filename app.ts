@@ -4,6 +4,7 @@ import logger from 'morgan';
 import cors from 'cors';
 import ordersRouter from './routes/orders';
 import atmRouter from './routes/atm';
+import walletRouter from './routes/wallet';
 
 const app = express();
 
@@ -24,16 +25,17 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/orders', ordersRouter);
 app.use('/atm', atmRouter);
+app.use('/wallet', walletRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(req, res) {
   res.json({
     statusCode: 404
   })
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   res.json({
     statusCode: 404,
     message: err.message,
