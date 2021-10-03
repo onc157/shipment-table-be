@@ -5,7 +5,7 @@ import { AtmDocumentInterface } from '../models/AtmModel';
 type DocumentTime =
     | OrderDocumentInterface
     | OrderDocumentInterface[]
-    | AtmDocumentInterface
+    | AtmDocumentInterface | {}
     | AtmDocumentInterface[]
 
 export const successHandler = (res: Response, code: number, document: DocumentTime): Response =>
