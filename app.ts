@@ -28,14 +28,14 @@ app.use('/atm', atmRouter);
 app.use('/wallet', walletRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res) {
+app.use(function(req, res, next) {
   res.json({
     statusCode: 404
   })
 });
 
 // error handler
-app.use(function(err, req, res) {
+app.use(function(err, req, res, next) {
   res.json({
     statusCode: 404,
     message: err.message,
