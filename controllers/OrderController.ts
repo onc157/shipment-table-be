@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { OrderModel, OrderInterface } from "../models";
+import { OrderModel } from "../models";
 import {errorHandler, successHandler} from '../utils';
 
 
@@ -34,13 +34,12 @@ export const getOrderById = async (req: Request, res: Response): Promise<Respons
 }
 
 export const createOrder = async (req: Request, res: Response): Promise<Response> => {
-    const orderData = req.body;
+    const countOrders = await OrderModel.countDocuments();
+    const orderData = {...req.body, status: 'paid', indexNumber: countOrders + 1};
 
     try {
         const orderDoc = await OrderModel.create(orderData);
-
         await orderDoc.save();
-
         successHandler(res, 201, orderDoc);
     } catch (e: unknown) {
         if (!(e instanceof Error)) throw e;
